@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Generator</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="theme-dark">
+  <div class="app">
+    <header class="app-header">
+      <div class="logo">
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+        <span class="logo-text">Password Generator</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+    </header>
+
+    <div class="password-display">
+      <div class="password-text" id="passwordText">Click Generate to create a password</div>
+      <div class="display-actions">
+        <button id="copyBtn" class="copy-btn" title="Copy password" aria-label="Copy password">
+          <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </button>
+        <button id="refreshBtn" class="refresh-btn" title="Generate new password" aria-label="Generate new password">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="strength-section">
+      <div class="strength-header">
+        <span class="strength-title">Strength</span>
+        <span class="strength-label" id="strengthLabel">—</span>
+      </div>
+      <div class="strength-meter">
+        <div class="strength-bar"></div>
+        <div class="strength-bar"></div>
+        <div class="strength-bar"></div>
+        <div class="strength-bar"></div>
+      </div>
+    </div>
+
+    <div class="options-section">
+      <div class="option-group">
+        <div class="option-header">
+          <label for="lengthSlider">Password Length</label>
+          <span class="length-value" id="lengthValue">12</span>
+        </div>
+        <input type="range" id="lengthSlider" min="8" max="32" value="12" class="slider">
+        <div class="slider-labels">
+          <span>8</span>
+          <span>32</span>
+        </div>
+      </div>
+
+      <div class="option-group">
+        <div class="option-header">
+          <span class="option-title">Character Types</span>
+        </div>
+        <div class="checkbox-grid">
+          <label class="checkbox-item">
+            <input type="checkbox" id="optUpper" checked>
+            <span class="checkbox-custom"></span>
+            <span class="checkbox-label">Uppercase <span class="checkbox-desc">A-Z</span></span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="optLower" checked>
+            <span class="checkbox-custom"></span>
+            <span class="checkbox-label">Lowercase <span class="checkbox-desc">a-z</span></span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="optNumbers" checked>
+            <span class="checkbox-custom"></span>
+            <span class="checkbox-label">Numbers <span class="checkbox-desc">0-9</span></span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="optSymbols" checked>
+            <span class="checkbox-custom"></span>
+            <span class="checkbox-label">Symbols <span class="checkbox-desc">!@#$</span></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="option-group">
+        <label class="checkbox-item exclude-item">
+          <input type="checkbox" id="optExclude">
+          <span class="checkbox-custom"></span>
+          <span class="checkbox-label">Exclude Ambiguous Characters <span class="checkbox-desc">O0Il1</span></span>
+        </label>
+      </div>
+    </div>
+
+    <button id="generateBtn" class="generate-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M23 4v6h-6"></path>
+        <path d="M1 20v-6h6"></path>
+        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path>
+        <path d="M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+      </svg>
+      Generate Password
+    </button>
+
+    <div class="requirements-section">
+      <div class="requirements-header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        <span>Password Requirements</span>
+      </div>
+      <div class="requirement-list">
+        <div class="requirement-item" id="reqLength">
+          <svg class="req-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Minimum 8 characters</span>
+        </div>
+        <div class="requirement-item" id="reqUpper">
+          <svg class="req-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>At least one uppercase letter</span>
+        </div>
+        <div class="requirement-item" id="reqLower">
+          <svg class="req-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>At least one lowercase letter</span>
+        </div>
+        <div class="requirement-item" id="reqNumber">
+          <svg class="req-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>At least one number</span>
+        </div>
+        <div class="requirement-item" id="reqSymbol">
+          <svg class="req-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>At least one special character</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
